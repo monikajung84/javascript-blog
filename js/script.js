@@ -17,6 +17,9 @@ const optArticleAuthorSelector = 'p.post-author';
 const optTagsListSelector = '.tags.list';
 const optCloudClassCount = 5;
 const optCloudClassPrefix = 'tag-size-';
+const optAuthorsListSelector = '.author.list';
+const optCloudAuthorCount = 5;
+const optCloudAuthorPrefix = 'author-size-';
 
 function titleClickHandler(event) {
   event.preventDefault();
@@ -128,11 +131,10 @@ function generateTags() {
     console.log('tagsParams: ', tagsParams);
     const className = calculateTagClass(allTags[tag], tagsParams);
     console.log("class",className);
-    const tagLinkHTML = '<li class="' + className +  '"><a href="'+tag+'">'+tag+'(' + allTags[tag] + ')<a/></li>';
+    const tagLinkHTML = '<li class="' + className +  '"><a href="'+tag+'">'+tag+'(' + allTags[tag] + ')</a></li>';
     console.log('tagLinkHTML: ', tagLinkHTML);
     /*[NEW] generate code of a link and add it to allTagsHTML */
-    allTagsHTML += tagLinkHTML; 
-  
+    allTagsHTML += tagLinkHTML;
   }
   tagList.innerHTML = allTagsHTML;
   addClickListenersToTags();
@@ -167,7 +169,32 @@ function addClickListenersToTags() {
   }
 }
 
+function calculateAuthorParams(artilceAuthors){
+  const params = {
+    max: 0,
+    min: 999999
+  };
+  for (let artilceAuthor in artilceAuthors){
+    console.log(artilceAuthor + ' is used ' + artilceAuthors[artilceAuthor] + ' times');
+    if(artilceAuthors[artilceAuthor] > params.max){
+      params.max = artilceAuthors[artilceAuthor];
+    }
+    if(artilceAuthors[artilceAuthor] < params.min){
+      params.min = artilceAuthors[artilceAuthor];
+    }
+  }
+  return params;
+}
+function calculateAuthorClass (count, params){
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const authorNumber = Math.floor( percentage * (optCloudAuthorCount - 1) + 1);
+  return  optCloudAuthorPrefix + authorNumber;
+}
+
 function generateAuthor() {
+  let allAuthors = {};
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
   /* START LOOP: for every article: */
@@ -175,11 +202,31 @@ function generateAuthor() {
     /*find tags wrapper*/
     const authorInArticle = article.querySelector(optArticleAuthorSelector);
     let html = "";
-    const articleAuthors = article.getAttribute("data-author", authorInArticle);
-    const linkHTML = '<a  href="#author-' + articleAuthors + '">' + articleAuthors + "</a>";
-    html = html + linkHTML;
+    const artilceAuthor = article.getAttribute("data-author", authorInArticle);
+    //for (let articleAuthors of articles){
+      const linkHTML = '<a  href="#tag-' + artilceAuthor + '">' + artilceAuthor + "</a>";
+      html = html + linkHTML;
+      if(!allAuthors.hasOwnProperty(artilceAuthor)){
+        allAuthors[artilceAuthor] = 1;
+      }else{
+        allAuthors[artilceAuthor] ++;
+      }
+    //}
+ 
     authorInArticle.innerHTML = html;
   }
+  const authorList = document.querySelector('.authors');
+  let allAuthorsHTML = '';
+  for (let artilceAuthor in allAuthors){
+    const authorParams = calculateAuthorParams(allAuthors);
+    console.log('authorParams: ', allAuthors);
+    const className = calculateAuthorClass(allAuthors[artilceAuthor], allAuthors);
+    console.log("class",className);
+    const authorLinkHTML ='<li class="' + className +  '"><a href="'+ artilceAuthor+ '">'+ artilceAuthor +'(' + allAuthors[artilceAuthor] + ')</a></li>';
+    console.log('tagLinkHTML: ', authorLinkHTML);
+    allAuthorsHTML += authorLinkHTML;
+  }
+  authorList.innerHTML = allAuthorsHTML;
   addClickListenerToAuthor();
 }
 
@@ -187,7 +234,7 @@ function authorClickHandler(event) {
   event.preventDefault();
   const clickedElement = this;
   const author = clickedElement.querySelector("a").getAttribute("href");
-  const authorSelector = author.replace("#author-", "");
+  const authorSelector = author.replace("#tag-", "");
   console.log(authorSelector);
   removeActiveArticle();
   const allTagsWithHrefs = document.querySelectorAll('article[data-author="' + authorSelector + '"]');
