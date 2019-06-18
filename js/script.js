@@ -76,7 +76,7 @@ function calculateTagsParams(tags){
     if(tags[tag] > params.max){
       params.max = tags[tag];
     }
-     if(tag[tag] < params.min){
+     if(tags[tag] < params.min){
       params.min = tags[tag];
     }
   }
@@ -128,7 +128,7 @@ function generateTags() {
     console.log('tagsParams: ', tagsParams);
     const className = calculateTagClass(allTags[tag], tagsParams);
     console.log("class",className);
-    const tagLinkHTML = '<li class="' + className +  '"><a href="#tags-'+tag+'">'+tag+'(' + allTags[tag] + ')<a/></li>';
+    const tagLinkHTML = '<li class="' + className +  '"><a href="'+tag+'">'+tag+'(' + allTags[tag] + ')<a/></li>';
     console.log('tagLinkHTML: ', tagLinkHTML);
     /*[NEW] generate code of a link and add it to allTagsHTML */
     allTagsHTML += tagLinkHTML; 
