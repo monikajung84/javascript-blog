@@ -4,6 +4,9 @@
 
 $color-light: #fff;
 $color-dark: #444;
+$color-size-5: #2F4F4F;
+$color-size-3: #696969;
+$color-size-2: #808080;
 
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
@@ -18,7 +21,6 @@ $font-text: 'Source Sans Pro', sans-serif;
 body {
   background: $color-light;
   font-family: $font-text;
-  color: $color-dark;
   font-weight: 300;
   font-size: 16px;
   line-height: 1.7;
@@ -80,6 +82,7 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  color: $color-size-5;
   .active {
     font-weight: bold;
   }
@@ -91,13 +94,27 @@ body {
     margin: 5px;
   }
 }
-
+a {
+  text-decoration: none;
+}
 /* Authors */
 
 .authors {
   li {
     margin-bottom: 12px;
+    display: inline-block;
+    padding: 5px;
   }
+}
+
+.author-size-1 {
+  font-size: 20px;
+  color: $color-size-2;
+}
+.author-size-5 {
+  font-size: 26px;
+  color: $color-size-3;
+  font-weight: bold;
 }
 
 /* Post */
@@ -118,4 +135,29 @@ body {
   p {
     margin: 0 10px 0 0;
   }
+}
+/*Tags*/
+.tags { 
+  li {
+    display: inline-block;
+    padding: 5px;
+  }
+}
+
+.tag-size-1 {
+  font-size: 14px;
+}
+.tag-size-2 {
+  font-size: 18px;
+  color: $color-size-2;
+}
+.tag-size-3 {
+  font-size: 22px;
+  color: $color-size-3;
+  font-weight: bold;
+}
+.tag-size-5 {
+  font-size: 28px;
+  color: $color-size-5;
+  font-weight: bold;
 }

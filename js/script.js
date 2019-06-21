@@ -17,7 +17,7 @@ const optArticleAuthorSelector = 'p.post-author';
 const optTagsListSelector = '.tags.list';
 const optCloudClassCount = 5;
 const optCloudClassPrefix = 'tag-size-';
-const optAuthorsListSelector = '.author.list';
+const optAuthorsListSelector = '.authors.list a';
 const optCloudAuthorCount = 5;
 const optCloudAuthorPrefix = 'author-size-';
 
@@ -131,7 +131,7 @@ function generateTags() {
     console.log('tagsParams: ', tagsParams);
     const className = calculateTagClass(allTags[tag], tagsParams);
     console.log("class",className);
-    const tagLinkHTML = '<li class="' + className +  '"><a href="'+tag+'">'+tag+'(' + allTags[tag] + ')</a></li>';
+    const tagLinkHTML = '<li class="' + className +  '"><a href="'+tag+'">'+tag+'</a></li>';
     console.log('tagLinkHTML: ', tagLinkHTML);
     /*[NEW] generate code of a link and add it to allTagsHTML */
     allTagsHTML += tagLinkHTML;
@@ -220,9 +220,9 @@ function generateAuthor() {
   for (let artilceAuthor in allAuthors){
     const authorParams = calculateAuthorParams(allAuthors);
     console.log('authorParams: ', allAuthors);
-    const className = calculateAuthorClass(allAuthors[artilceAuthor], allAuthors);
+    const className = calculateAuthorClass(allAuthors[artilceAuthor], authorParams);
     console.log("class",className);
-    const authorLinkHTML ='<li class="' + className +  '"><a href="'+ artilceAuthor+ '">'+ artilceAuthor +'(' + allAuthors[artilceAuthor] + ')</a></li>';
+    const authorLinkHTML ='<li class="' + className +  '"><a href="'+ artilceAuthor+ '">'+ artilceAuthor +'</a></li>';
     console.log('tagLinkHTML: ', authorLinkHTML);
     allAuthorsHTML += authorLinkHTML;
   }
@@ -233,7 +233,7 @@ function generateAuthor() {
 function authorClickHandler(event) {
   event.preventDefault();
   const clickedElement = this;
-  const author = clickedElement.querySelector("a").getAttribute("href");
+  const author = clickedElement.getAttribute("href");
   const authorSelector = author.replace("#tag-", "");
   console.log(authorSelector);
   removeActiveArticle();
@@ -247,7 +247,7 @@ function authorClickHandler(event) {
 }
 
 function addClickListenerToAuthor() {
-  const linkToAuthors = document.querySelectorAll(optArticleAuthorSelector);
+  const linkToAuthors = document.querySelectorAll(optAuthorsListSelector);
   for (let linkToAuthor of linkToAuthors) {
     linkToAuthor.addEventListener("click", authorClickHandler);
   }
