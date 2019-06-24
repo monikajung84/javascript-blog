@@ -7,7 +7,7 @@ $color-dark: #444;
 $color-size-5: #2F4F4F;
 $color-size-3: #696969;
 $color-size-2: #808080;
-
+$color-size-1: #708090;
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
@@ -83,7 +83,9 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  color: $color-size-5;
+  span{
+    color: $color-size-5;
+  }
   .active {
     font-weight: bold;
   }
@@ -98,25 +100,7 @@ body {
 a {
   text-decoration: none;
 }
-/* Authors */
 
-.authors {
-  li {
-    margin-bottom: 12px;
-    display: inline-block;
-    padding: 5px;
-  }
-}
-
-.author-size-1 {
-  font-size: 20px;
-  color: $color-size-2;
-}
-.author-size-5 {
-  font-size: 26px;
-  color: $color-size-3;
-  font-weight: bold;
-}
 
 /* Post */
 
@@ -129,6 +113,33 @@ a {
 
 .post-author {
   font-style: italic;
+  a{
+    color: $color-size-3;
+  }
+}
+
+/* Authors */
+
+.authors {
+  li {
+    margin-bottom: 12px;
+    display: inline-block;
+    padding: 5px;
+  }
+}
+
+.author-size-1 {
+  font-size: 20px;
+  a{
+  color: $color-size-5;
+  }
+}
+.author-size-5 {
+  font-size: 26px;
+  a{
+    color: $color-size-3;
+    font-weight: bold;
+  }
 }
 
 .post-tags {
@@ -137,6 +148,7 @@ a {
     margin: 0 10px 0 0;
   }
 }
+
 /*Tags*/
 .tags { 
   li {
@@ -147,18 +159,29 @@ a {
 
 .tag-size-1 {
   font-size: 14px;
+  a{
+    color: $color-size-1;
+  }
 }
 .tag-size-2 {
   font-size: 18px;
-  color: $color-size-2;
+  a {
+    color: $color-size-2;
+  }
 }
+
 .tag-size-3 {
   font-size: 22px;
-  color: $color-size-3;
-  font-weight: bold;
+  a{
+    color: $color-size-3;
+    font-weight: bold;
+  }
 }
+
 .tag-size-5 {
   font-size: 28px;
-  color: $color-size-5;
-  font-weight: bold;
+  a{
+    color: $color-size-5;
+    font-weight: bold;
+  }
 }
