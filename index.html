@@ -32,7 +32,7 @@
                       <ul class="list list-horizontal">
                       </ul>
                     </div>
-                  </article>        
+                  </article>
                   <article class="post" id="article-2" data-tags="cat scissors" data-author="Theo Tabby">
                     <h3 class="post-title">Article 2</h3>
                     <p class="post-author"></p>
@@ -48,7 +48,7 @@
                       <ul class="list list-horizontal">
                       </ul>
                     </div>
-                  </article>        
+                  </article>
                   <article class="post" id="article-3" data-tags="stars coffee" data-author="George Tuxedo">
                     <h3 class="post-title">Article 3</h3>
                     <p class="post-author"></p>
@@ -63,7 +63,7 @@
                       <ul class="list list-horizontal">
                       </ul>
                     </div>
-                  </article>        
+                  </article>
                   <article class="post" id="article-4" data-tags="water coffee stars" data-author="Kitty Toebean">
                     <h3 class="post-title">Article 4</h3>
                     <p class="post-author"></p>
@@ -95,7 +95,7 @@
                       <ul class="list list-horizontal">
                       </ul>
                     </div>
-                  </article>        
+                  </article>
                   <article class="post" id="article-6" data-tags="water clouds" data-author="George Tuxedo">
                     <h3 class="post-title">Article 6</h3>
                     <p class="post-author"></p>
@@ -188,6 +188,16 @@
               </main>
             </div>
           </div>
+        <script id="template-article-link" type="text/x-handlebars-template">
+            <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+        </script>
+        <script id="template-tag-link" type="text/x-handlebars-template">
+          <li><a href="#tag-{{ tag }}"><span>{{ title }}</span></a></li>
+        </script>
+        <script id="template-author-link" type="text/x-handlebars-template">
+          <li><a href="#tag-{{ tag }}"><span>{{ title }}</span></a></li>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
         <script src="js/script.js"></script>
     </body>
 </html>

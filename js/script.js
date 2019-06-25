@@ -1,5 +1,10 @@
 "use strict";
 //const
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML)
+}
 const linksActive = '.titles a.active';
 const articlesActive = '.posts article.active';
 const atributeArticle = 'href';
@@ -53,7 +58,8 @@ function generateTitleLinks(customSelector = "") {
     article.classList.remove(active);
     const articleId = article.getAttribute(idArticles);
     const articleTitle = article.querySelector(optTitleSelector).innerHTML;
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + "</span></a></li>";
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
     /*create HTML of the link */
     /*titleList.insertAdjacentHTML("beforebegin", linkHTML);*/
     /*insert link into titleList */
@@ -105,7 +111,8 @@ function generateTags() {
 
     const articleTagsArray = articleTags.split(" ");
     for (let tag of articleTagsArray) {
-      const linkHTML = '<li><a href="#tag-' + tag+ '"> <span>' + tag + " </span></a></li>";
+      const linkHTMLData = {tag: tag, title: tag};
+      const linkHTML = templates.tagLink(linkHTMLData);
       html = html + linkHTML;
       /*[NEW] check if this link is not already in allTags*/
       if(!allTags.hasOwnProperty(tag)){
@@ -204,7 +211,8 @@ function generateAuthor() {
     let html = "";
     const artilceAuthor = article.getAttribute("data-author", authorInArticle);
     //for (let articleAuthors of articles){
-      const linkHTML = '<a  href="#tag-' + artilceAuthor + '">' + artilceAuthor + "</a>";
+      const linkHTMLData = {tag: artilceAuthor, title: artilceAuthor};
+      const linkHTML = templates.authorLink(linkHTMLData);
       html = html + linkHTML;
       if(!allAuthors.hasOwnProperty(artilceAuthor)){
         allAuthors[artilceAuthor] = 1;
