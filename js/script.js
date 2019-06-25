@@ -4,7 +4,8 @@ const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
   tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
   authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
-  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML)
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+  authorCloudLink: Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML)
 }
 const linksActive = '.titles a.active';
 const articlesActive = '.posts article.active';
@@ -139,8 +140,6 @@ function generateTags() {
     console.log('tagsParams: ', tagsParams);
     const className = calculateTagClass(allTags[tag], tagsParams);
     console.log("class",className);
-    const tagLinkHTML = '<li class="' + className +  '"><a href="'+tag+'">'+tag+'</a></li>';
-    console.log('tagLinkHTML: ', tagLinkHTML);
     /*[NEW] generate code of a link and add it to allTagsHTML */
     allTagsData.tags.push({
       tag: tag,
@@ -230,17 +229,19 @@ function generateAuthor() {
     authorInArticle.innerHTML = html;
   }
   const authorList = document.querySelector('.authors');
-  let allAuthorsHTML = '';
+  const allAuthorsData = {authors:[]};
   for (let artilceAuthor in allAuthors){
     const authorParams = calculateAuthorParams(allAuthors);
     console.log('authorParams: ', allAuthors);
     const className = calculateAuthorClass(allAuthors[artilceAuthor], authorParams);
     console.log("class",className);
-    const authorLinkHTML ='<li class="' + className +  '"><a href="'+ artilceAuthor+ '">'+ artilceAuthor +'</a></li>';
-    console.log('tagLinkHTML: ', authorLinkHTML);
-    allAuthorsHTML += authorLinkHTML;
+    allAuthorsData.authors.push({
+      artilceAuthor: artilceAuthor,
+      count: allAuthors[artilceAuthor],
+      className: calculateAuthorClass(allAuthors[artilceAuthor],authorParams )
+    });
   }
-  authorList.innerHTML = allAuthorsHTML;
+  authorList.innerHTML = templates.authorCloudLink(allAuthorsData);
   addClickListenerToAuthor();
 }
 
